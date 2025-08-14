@@ -17,7 +17,7 @@ export default function Signup() {
     password : z.string().min(8).max(16).regex(/^[A-Z][\w]/ , "must start with capital letter"),
     rePassword : z.refine((value)=> value=== getValues("password") , {error:"password must match "}),
     gender :z.literal( ['male',"female"]),
-    dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}/,'enter a valid   data ')
+    dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}/,'enter a valid data ')
 })
 
     const{ register, handleSubmit ,watch, getValues ,formState:{errors} }=useForm( {resolver:zodResolver(schema)})

@@ -6,8 +6,8 @@ export const UserContext=createContext(null)
 
 
 export default function UserContextProvider({children}) {
-    const [userData ,setUserData] =useState(localStorage.getItem("token"))
-
+    const [userData ,setUserData] =useState(null)
+    const [userToken, setUserToken] = useState(localStorage.getItem("token"));
     const router =useNavigate()
 
     async function getUserData(token){
@@ -18,6 +18,7 @@ export default function UserContextProvider({children}) {
                 },
             })
             setUserData(data)
+            localStorage.setItem("userId",data?.user._id)
 
         } catch (error) {
             console.log("🚀  getUserData ~ error:", error)
@@ -26,13 +27,25 @@ export default function UserContextProvider({children}) {
     }
     function logout(){
         localStorage.removeItem("token")
+         localStorage.removeItem("userId");
+        setUserToken(null);
         setUserData(null)
         router("/login")
     
     }
+    const values = {
+      userData,
+      setUserData,
+      getUserData,
+      logout,
+      userToken,
+      setUserToken,
+    };
 
     return (
-        <UserContext.Provider value={{ userData,setUserData ,getUserData,logout}}>{children}</UserContext.Provider>
-    )
+      <UserContext.Provider value={ values}>
+        {children}
+      </UserContext.Provider>
+    );
 }
 
