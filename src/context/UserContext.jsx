@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router'
 export const UserContext=createContext(null)
 
 
-export default function UserContextProvider({children}) {
+export default function UserContextProvider({ children }) {
+    
     const [userData ,setUserData] =useState(null)
     const [userToken, setUserToken] = useState(localStorage.getItem("token"));
     const router =useNavigate()

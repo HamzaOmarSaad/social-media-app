@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Message } from "iconsax-reactjs";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
-import CommentElement from "../pages/CommentElement";
+import CommentElement from "../components/CommentElement";
 import { useQuery } from "@tanstack/react-query";
 
 function PostDetails() {

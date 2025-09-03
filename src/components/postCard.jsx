@@ -1,7 +1,7 @@
 import { Card, TextInput } from "flowbite-react";
 import { I3Square, Message } from "iconsax-reactjs";
 import { Link } from "react-router";
-import PostDetails from "../components/postDetails";
+import PostDetails from "../pages/postDetails";
 import { useForm } from "react-hook-form";
 import AppButton from "../shared/appButton";
 import CommentElement from "./CommentElement";
@@ -21,7 +21,11 @@ export default function PostCard({ postData }) {
             <p>{moment(postData?.createdAt).format("lll")}</p>
           </div>
         </div>
-        {(localStorage.getItem("userId")=== postData?.user._id)?<I3Square size="32" color="#FF8A65" />:""}
+        {localStorage.getItem("userId") === postData?.user._id ? (
+          <I3Square size="32" color="#FF8A65" />
+        ) : (
+          ""
+        )}
       </div>
 
       <p className="font-normal text-gray-700 dark:text-gray-400 py-2">

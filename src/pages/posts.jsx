@@ -1,7 +1,7 @@
 import AppButton from "../shared/appButton";
 import { UserContext } from "../context/UserContext";
-import PostCreate from "../pages/postCreate";
-import PostCard from "../pages/postCard";
+import PostCreate from "../components/postCreate";
+import PostCard from "../components/postCard";
 // import { useEffect, useState } from 'react'
 import axios from "axios";
 import { Key } from "iconsax-reactjs";
@@ -10,15 +10,15 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 function Posts() {
-  const [page, setPage] = useState(1)
-  
+  const [page, setPage] = useState(1);
+
   // manage calling function  that call api in the mounting phase  + return data replacing the use effect and use state
   const { data, isLoading } = useQuery({
     queryFn: getPosts,
-    queryKey: ["posts",page],
+    queryKey: ["posts", page],
     enabled: true, // this call api when mounting
   });
-  
+
   function goBack() {
     if (page === 1) {
       toast.error("no pages to load");
@@ -47,21 +47,18 @@ function Posts() {
     }
   }
 
-
-
   return (
     <div className="posts container w-60/100 mx-auto">
       <PostCreate />
       {isLoading
         ? "loading"
         : data.posts.map((item) => <PostCard key={item._id} postData={item} />)}
-      
+
       <div className="traverse flex justify-between">
-        <AppButton onClick={goBack}  >prev</AppButton>
-      <AppButton onClick={goNext}>next</AppButton>
+        <AppButton onClick={goBack}>prev</AppButton>
+        <AppButton onClick={goNext}>next</AppButton>
       </div>
     </div>
-
   );
 }
 

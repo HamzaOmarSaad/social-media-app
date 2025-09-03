@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router";
 
 import * as z from "zod"
 import ErrorMsg from "../shared/errorMsg";
+import toast from "react-hot-toast";
 
 
 export default function Signup() {
@@ -29,9 +30,11 @@ export default function Signup() {
             await axios.post('https://linked-posts.routemisr.com/users/signup', values)
         router("/login")
 
-        
+        toast.success("registeration done");
+
         } catch (error) {
-            console.log("error:", error)
+            toast.error(error?.response?.data?.error);
+
             
         }
 

@@ -9,6 +9,7 @@ import { UserContext } from "../context/UserContext";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMsg from "../shared/errorMsg";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const schema = z.object({
@@ -46,7 +47,7 @@ export default function Login() {
       setUserToken(response.data?.token);
       router("/posts");
     } catch (error) {
-      console.log("🚀 ~ logSend ~ error:", error);
+      toast.error(error?.response?.data?.error)
     } finally {
       setIsloading(false);
     }
